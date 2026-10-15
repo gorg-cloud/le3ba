@@ -4,8 +4,8 @@ export const getSupabase = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  if (!supabaseUrl || !supabaseAnonKey) {
-    // Return a dummy client to prevent build crashes
+  if (typeof supabaseUrl !== 'string' || supabaseUrl.trim() === '' ||
+      typeof supabaseAnonKey !== 'string' || supabaseAnonKey.trim() === '') {
     return {
       auth: {
         signInWithPassword: async () => ({ data: null, error: { message: 'Missing keys' } }),
