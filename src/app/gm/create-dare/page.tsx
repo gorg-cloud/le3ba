@@ -1,6 +1,7 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Sparkles, Send } from 'lucide-react';
 
@@ -10,6 +11,7 @@ export default function CreateDare() {
   const [playerEmail, setPlayerEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const supabase = getSupabase();
 
   const handleSlangify = async () => {
     if (!description) return;

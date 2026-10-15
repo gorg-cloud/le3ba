@@ -1,6 +1,7 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import { Key } from 'lucide-react';
 
@@ -9,6 +10,7 @@ export default function SecretPortal() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const supabase = getSupabase();
 
   const handleElevate = async (e: React.FormEvent) => {
     e.preventDefault();

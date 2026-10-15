@@ -2,7 +2,7 @@
 export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, CheckCircle2, AlertCircle } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
@@ -14,6 +14,7 @@ export default function DarePage() {
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitted' | 'error'>('idle');
+  const supabase = getSupabase();
 
   useEffect(() => {
     async function loadDare() {

@@ -1,7 +1,7 @@
 'use client';
 export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { Plus, Users, Image as ImageIcon, Trophy, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +10,7 @@ export default function GMDashboard() {
   const [dares, setDares] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const supabase = getSupabase();
 
   useEffect(() => {
     async function loadData() {

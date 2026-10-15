@@ -1,7 +1,7 @@
 'use client';
 export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { Trophy, MessageSquare, LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +10,7 @@ export default function PlayerDashboard() {
   const [activeDare, setActiveDare] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const router = useRouter();
+  const supabase = getSupabase();
 
   useEffect(() => {
     async function loadData() {

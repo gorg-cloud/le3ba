@@ -1,6 +1,7 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import { Lock, User } from 'lucide-react';
 
@@ -10,6 +11,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const supabase = getSupabase();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +22,14 @@ export default function LoginPage() {
       email,
       password,
     });
+
+    if (error) {
+      setError('بيانات الدخول غلط، حاول تاني');
+    } else {
+      router.push('/dashboard');
+    }
+    setLoading(false);
+  };
 
     if (error) {
       setError('بيانات الدخول غلط، حاول تاني');

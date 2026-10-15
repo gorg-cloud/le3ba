@@ -1,17 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+export const getSupabase = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  // During build/prerendering, we don't want to crash the process
-  // just warn and export a dummy client or null
-  console.warn('Supabase credentials are missing. App will not function until variables are set.')
-}
-
-export const supabase = (supabaseUrl && supabaseAnonKey)
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    // Return a dummy client to prevent build crashes
+    return {
       auth: {
         signInWithPassword: async () => ({ data: null, error: { message: 'Missing keys' } }),
         getUser: async () => ({ data: { user: null }, error: { message: 'Missing keys' } }),
@@ -31,4 +26,8 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
           upload: async () => ({ data: null, error: { message: 'Missing keys' } }),
         }),
       },
-    }
+    } as any;
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey);
+}
